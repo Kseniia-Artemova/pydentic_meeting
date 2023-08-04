@@ -4,8 +4,8 @@ from pprint import pprint
 
 class Cat(BaseModel):
 
-    name: str = Field(... , min_length=20, max_length=7)
-    age: int = Field(... , gt=0, lt=20)
+    name: str = Field(..., min_length=2, max_length=7)
+    age: int = Field(..., gt=0, lt=20)
 # Полный список констрейнтов
 #
 # https://docs.pydantic.dev/dev-v2/usage/fields/
