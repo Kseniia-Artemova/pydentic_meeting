@@ -24,7 +24,7 @@ from typing_extensions import Annotated
 
 class Homework(BaseModel):
     student: str
-    score: int = Field(gt=0, le=100)
+    score: int = Field(ge=0, le=100)
     lesson: int = Field(gt=0, le=29)
 
     @computed_field
@@ -40,15 +40,17 @@ class Homework(BaseModel):
     @computed_field
     @property
     def course(self) -> str:
-        if self.lesson in range(1, 10):
-            return 'первый курс'
-        elif self.lesson in range(10, 20):
-            return 'второй курс'
-        else:
-            return 'третий курс'
+
+        COURSES = {
+            1: 'первый курс',
+            2: 'второй курс',
+            3: 'третий курс'
+        }
+
+        return COURSES.get(self.lesson // 10 + 1)
 
 
-homework = Homework(student="Sergei", score=85, lesson=20)
+homework = Homework(student="Sergei", score=85, lesson=29)
 result = homework.model_dump()
 print(result)
 
